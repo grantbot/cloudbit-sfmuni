@@ -13,9 +13,9 @@ class SfMuni(object):
 
     exposed = True
 
+    @cherrypy.tools.json_in()
     def POST(self, **kwargs):
-        cl = cherrypy.request.headers['Content-Length']
-        body = json.loads(cherrypy.request.body.read(int(cl)))
+        body = cherrypy.request.json
         LOGGER.info('BODY: %s', body)
         return 'POSTED'
 
