@@ -7,6 +7,9 @@ LOGGER = logging.getLogger('CLOUDBIT_SFMUNI')
 class SfMuni(object):
     exposed = True
 
+    def GET(self):
+        return 'HELLO WORLD'
+
     def POST(self, **kwargs):
 
         LOGGER.info('request.body_params: %s', cherrypy.request.body_params)
