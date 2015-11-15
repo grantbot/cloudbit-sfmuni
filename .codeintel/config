@@ -1,0 +1,7 @@
+{
+  "Python3": {
+    "python": '~/.virtualenvs/cloudbit-sfmuni/bin/python',
+    "pythonExtraPaths": ['~/.virtualenvs/cloudbit-sfmuni/lib/python3.4/site-packages/',
+    ]
+  },
+}
