@@ -9,16 +9,10 @@ logging.config.dictConfig(LOG_CONF)
 LOGGER = logging.getLogger(__name__)
 
 class SfMuni(object):
+
     exposed = True
 
-    def GET(self):
-        LOGGER.info('LOGGER INFO')
-        cherrypy.log('CHERRYPY LOG')
-        return 'HELLO WORLD'
-
     def POST(self, **kwargs):
-
-        LOGGER.info('request.body_params: %s', cherrypy.request.body_params)
         LOGGER.info('request.params: %s', cherrypy.request.params)
         return 'POSTED'
 
