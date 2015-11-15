@@ -14,6 +14,7 @@ class SfMuni(object):
 
     def POST(self, **kwargs):
         LOGGER.info('request.params: %s', cherrypy.request.body_params)
+        LOGGER.info('KWARGS: %s', kwargs)
         return 'POSTED'
 
 
