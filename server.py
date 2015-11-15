@@ -1,23 +1,8 @@
 import json
-import logging
-import logging.config
 
 import cherrypy
 
-from log_conf import LOG_CONF
-
-logging.config.dictConfig(LOG_CONF)
-LOGGER = logging.getLogger(__name__)
-
-class SfMuni(object):
-
-    exposed = True
-
-    @cherrypy.tools.json_in()
-    def POST(self, **kwargs):
-        body = cherrypy.request.json
-        LOGGER.info('BODY: %s', body['bit_id'])
-        return 'POSTED'
+from routes.muni import SfMuni
 
 
 if __name__ == '__main__':
