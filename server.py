@@ -1,3 +1,4 @@
+import json
 import logging
 import logging.config
 
@@ -13,9 +14,8 @@ class SfMuni(object):
     exposed = True
 
     def POST(self, **kwargs):
-        LOGGER.info('request.params: %s', cherrypy.request.body_params)
-        LOGGER.info('KWARGS: %s', kwargs)
-        LOGGER.info('BODY: %s', cherrypy.request.body.read())
+        body = json.loads(cherrypy.request.body.read())
+        LOGGER.info('BODY: %s', body)
         return 'POSTED'
 
 
