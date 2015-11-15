@@ -16,7 +16,7 @@ class SfMuni(object):
     @cherrypy.tools.json_in()
     def POST(self, **kwargs):
         body = cherrypy.request.json
-        LOGGER.info('BODY: %s', body)
+        LOGGER.info('BODY: %s', body['bit_id'])
         return 'POSTED'
 
 
