@@ -4,7 +4,7 @@ import cherrypy
 
 LOGGER = logging.getLogger('CLOUDBIT_SFMUNI')
 
-class HelloWorld(object):
+class SfMuni(object):
     exposed = True
 
     def POST(self, **kwargs):
@@ -15,12 +15,12 @@ class HelloWorld(object):
 
 
 if __name__ == '__main__':
+    cherrypy.config.update({'server.socket_port': 5000})
     cherrypy.tree.mount(
-        HelloWorld(), '/api/hello',
+        SfMuni(), '/api/hello',
         {'/':
             {'request.dispatch': cherrypy.dispatch.MethodDispatcher()}
         }
     )
-
     cherrypy.engine.start()
     cherrypy.engine.block()
