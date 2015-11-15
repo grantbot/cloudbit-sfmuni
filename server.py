@@ -13,7 +13,7 @@ class SfMuni(object):
     exposed = True
 
     def POST(self, **kwargs):
-        LOGGER.info('request.params: %s', cherrypy.request.params)
+        LOGGER.info('request.params: %s', cherrypy.request.body_params)
         return 'POSTED'
 
 
