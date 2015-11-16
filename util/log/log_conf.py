@@ -1,3 +1,9 @@
+"""Module for logging configuration."""
+
+import os
+
+LEVEL = 'INFO' if os.getenv('ENV') == 'PROD' else 'DEBUG'
+
 LOG_CONF = {
     'version': 1,
 
@@ -6,24 +12,24 @@ LOG_CONF = {
             'format': ''
         },
         'standard': {
-            'format': '%(asctime)s [%(levelname)s] %(name)s: %(message)s'
+            'format': '%(asctime)s [%(levelname)s] %(module)s: %(message)s'
         },
     },
     'handlers': {
         'default': {
-            'level':'INFO',
+            'level': LEVEL,
             'class':'logging.StreamHandler',
             'formatter': 'standard',
             'stream': 'ext://sys.stdout'
         },
         'cherrypy_console': {
-            'level':'INFO',
+            'level': LEVEL,
             'class':'logging.StreamHandler',
             'formatter': 'void',
             'stream': 'ext://sys.stdout'
         },
         'cherrypy_access': {
-            'level':'INFO',
+            'level': LEVEL,
             'class': 'logging.handlers.RotatingFileHandler',
             'formatter': 'void',
             'filename': 'access.log',
@@ -32,7 +38,7 @@ LOG_CONF = {
             'encoding': 'utf8'
         },
         'cherrypy_error': {
-            'level':'INFO',
+            'level': LEVEL,
             'class': 'logging.handlers.RotatingFileHandler',
             'formatter': 'void',
             'filename': 'errors.log',
@@ -44,16 +50,16 @@ LOG_CONF = {
     'loggers': {
         '': {
             'handlers': ['default'],
-            'level': 'INFO'
+            'level': LEVEL
         },
         'cherrypy.access': {
             'handlers': ['cherrypy_access'],
-            'level': 'INFO',
+            'level': LEVEL,
             'propagate': False
         },
         'cherrypy.error': {
             'handlers': ['cherrypy_console', 'cherrypy_error'],
-            'level': 'INFO',
+            'level': LEVEL,
             'propagate': False
         },
     }
