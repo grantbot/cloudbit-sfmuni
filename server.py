@@ -19,7 +19,7 @@ if __name__ == '__main__':
     cherrypy.engine.unsubscribe('graceful', cherrypy.log.reopen_files)
 
     cherrypy.tree.mount(
-        SfMuni(), '/api/hello',
+        SfMuni(), '/api',
         {'/':
             {'request.dispatch': cherrypy.dispatch.MethodDispatcher()}
         }
