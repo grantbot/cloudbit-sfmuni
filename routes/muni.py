@@ -25,9 +25,10 @@ class SfMuni(object):
 
         # Get muni prediction
         try:
-            first, second = muni.get_next_two(route='5',
-                                              stop_name='market_1st',
-                                              direction='inbound')
+            next_three = muni.get_next(route='5',
+                                       stop_name='market_1st',
+                                       direction='inbound',
+                                       num=3)
         except muni.NoPredictionsError:
             LOGGER.info('Sweeping face.')
             cloudbit.Motions.sweep_face(bit_id)
@@ -43,15 +44,15 @@ class SfMuni(object):
             cloudbit.Motions.harlem_shake(bit_id)
             return 'NextBus API call failed.'
 
-        # Not gonna make it
-        if first <= 1:
-            LOGGER.info('Ur not gonna make it.')
-            first = second
+        for bus_wait in next_three:
+            if bus_wait <= 1:
+                LOGGER.info('Ur not gonna make the next one.')
 
-        # Calculate voltage with response
-        volts_prcnt = cloudbit.get_percentage(first)
+            else:
+                # Calculate voltage with response
+                volts_prcnt = cloudbit.get_percentage(bus_wait)
 
-        # Hit cloudbit
-        res = cloudbit.output_to_servo(bit_id, volts_prcnt, 4000)
+                # Hit cloudbit
+                cloudbit.output_to_servo(bit_id, volts_prcnt, 3000)
 
-        return str(first)
+        return str(next_three)

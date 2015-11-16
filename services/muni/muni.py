@@ -18,7 +18,7 @@ NEXTBUS_URL = """ \
 """
 
 
-def get_next_two(route, stop_name, direction):
+def get_next(route, stop_name, direction, num):
     """Get the next two predicted arrival times, in minutes.
 
     Uses the NextBus 'predictions' API command.
@@ -27,6 +27,7 @@ def get_next_two(route, stop_name, direction):
         route (str) Name of Muni line. Must exist in STOP_MAP
         stop_name (str) Name of stop. Must exist in STOP_MAP
         direction (str) 'inbound' or 'outbound'
+        num (int) Number of buses for which to return predictions
 
     """
     command = 'predictions'
@@ -61,21 +62,20 @@ def get_next_two(route, stop_name, direction):
         LOGGER.debug('Parsed XML: %s', parsed)
         raise NoPredictionsError
 
-    first, second = extract_minutes(predictions)
+    predictions_min = get_sorted_minutes(predictions)
+    result = predictions_min[:num]
 
-    LOGGER.info('Next {direction} {route} in: {first} and {second} min'
+    LOGGER.info('Next {direction} {route} buses: {buses}'
                 .format(direction=direction,
                         route=route,
-                        first=first,
-                        second=second))
+                        buses=result))
 
-    return first, second
+    return result
 
 
-def extract_minutes(predictions):
+def get_sorted_minutes(predictions):
     """Pull the earliest two predictions, in minutes, from parsed NextBus XML."""
-    times = sorted([int(p['@minutes']) for p in predictions])
-    return times[0], times[1]
+    return sorted([int(p['@minutes']) for p in predictions])
 
 
 # CUSTOM EXCEPTIONS
