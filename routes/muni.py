@@ -51,7 +51,7 @@ class SfMuni(object):
             return 'NextBus API call failed.'
 
         thread = threading.Thread(target=async_cloudbit_output,
-                                  args=(bit_id, next_buses, 2))
+                                  args=(bit_id, next_buses, 1))
 
         LOGGER.info('Spawning new thread.')
         thread.start()
