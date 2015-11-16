@@ -10,8 +10,8 @@ from services.muni import muni
 from services.cloudbit import cloudbit
 
 LOGGER = logging.getLogger()
-ROUTE = '5'
-STOP_NAME = 'market_1st'
+ROUTE = 'N'
+STOP_NAME = 'carl_stanyan'
 DIRECTION = 'inbound'
 NUM_BUSES = 3
 
