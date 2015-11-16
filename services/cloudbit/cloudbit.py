@@ -58,7 +58,13 @@ def get_percentage(part, whole=MAX_MINUTES):
     if part >= whole:
         return 100
 
-    return int(100 * part / whole)
+    result = int(100 * part / whole)
+
+    LOGGER.debug('{part} is {result} percent of {whole}'
+                .format(part=part,
+                        result=result,
+                        whole=whole))
+    return result
 
 
 
