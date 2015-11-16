@@ -19,7 +19,16 @@ NEXTBUS_URL = """ \
 
 
 def get_next_two(route, stop_name, direction):
-    """Get the next predicted bus wait time, in minutes."""
+    """Get the next two predicted arrival times, in minutes.
+
+    Uses the NextBus 'predictions' API command.
+
+    Arguments:
+        route (str) Name of Muni line. Must exist in STOP_MAP
+        stop_name (str) Name of stop. Must exist in STOP_MAP
+        direction (str) 'inbound' or 'outbound'
+
+    """
     command = 'predictions'
 
     # Get stop tag
@@ -71,5 +80,6 @@ def extract_minutes(predictions):
 
 # CUSTOM EXCEPTIONS
 class NoPredictionsError(Exception):
+    """Successful API call, but no predictions."""
     pass
 

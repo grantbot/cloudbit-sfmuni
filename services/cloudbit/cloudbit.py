@@ -11,23 +11,32 @@ LOGGER = logging.getLogger()
 LITTLEBITS_OUTPUT_URL = 'https://api-http.littlebitscloud.cc/devices/{bit_id}/output'
 LITTLEBITS_TOKEN = os.getenv('LITTLEBITS_TOKEN')
 AUTH_HEADER = {'Authorization': 'Bearer ' + LITTLEBITS_TOKEN}
-MAX_MINUTES = 30
+MAX_MINUTES = 30  # Can be bigger if servo has larger ROM
 
 
 class Motions(object):
+    """Namespace for convenience methods that map to specific servo motions."""
 
     @staticmethod
     def sweep_face(bit_id):
+        """A quick, full-range-of-motion sweep."""
         output_to_servo(bit_id, 100, 400)
 
     @staticmethod
     def harlem_shake(bit_id):
+        """Two short, quick shakes."""
         output_to_servo(bit_id, 50, 100)
         output_to_servo(bit_id, 50, 100)
 
 
 def output_to_servo(bit_id, volts_prcnt, duration_ms):
-    """Send a voltage and duration to specific bit_id."""
+    """Send a voltage and duration to specific bit_id.
+
+    Arguments:
+        bit_id (str) Unique identifier of the target CloudBit
+        volts_prcnt (int between [0, 100]) percentage of output device voltage
+        duration_ms (int) milliseconds for which to sustain output voltage
+    """
     url = LITTLEBITS_OUTPUT_URL.format(bit_id=bit_id)
 
     output_data = {
