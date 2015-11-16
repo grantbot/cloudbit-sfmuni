@@ -67,10 +67,16 @@ def get_predictions_from_xml(nextbus_xml):
 
     # 'direction' won't exist inside 'predictions' if no predictions
     try:
-        predictions = parsed['body'] \
-                            ['predictions'] \
-                            ['direction'] \
-                            ['prediction']
+        directions = parsed['body'] \
+                           ['predictions'] \
+                           ['direction']
+        # Could get multiple directions
+        if isinstance(directions, list):
+            LOGGER.info('Got a list. Direction: %s', directions[0]['@title'])
+            predictions = directions[0]['prediction']
+        else:
+            predictions = directions['prediction']
+
     except KeyError:
         LOGGER.info('No predictions.')
         LOGGER.debug('Parsed XML: %s', parsed)
