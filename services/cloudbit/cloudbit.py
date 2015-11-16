@@ -11,7 +11,7 @@ LOGGER = logging.getLogger()
 LITTLEBITS_OUTPUT_URL = 'https://api-http.littlebitscloud.cc/devices/{bit_id}/output'
 LITTLEBITS_TOKEN = os.getenv('LITTLEBITS_TOKEN')
 AUTH_HEADER = {'Authorization': 'Bearer ' + LITTLEBITS_TOKEN}
-MAX_MINUTES = 30  # Can be bigger if servo has larger ROM
+MAX_MINUTES = 20  # Can be bigger if servo has larger ROM
 
 
 class Motions(object):
