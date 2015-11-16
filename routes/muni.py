@@ -1,6 +1,7 @@
 """Module for /api/muni"""
 
 import logging
+import time
 
 import cherrypy
 
@@ -54,5 +55,6 @@ class SfMuni(object):
 
                 # Hit cloudbit
                 cloudbit.output_to_servo(bit_id, volts_prcnt, 3000)
+                time.sleep(3)
 
         return str(next_three)
