@@ -23,10 +23,12 @@ class SfMuni(object):
     @cherrypy.tools.json_in()
     def POST(self, **kwargs):
         LOGGER.info('Got POST request.')
+
         # This route should only be subscribed to amplitude:delta:ignite
         # (button press)
         body = cherrypy.request.json
         LOGGER.debug('POST body: %s', body)
+
         bit_id = body['bit_id']
 
         # Get muni prediction

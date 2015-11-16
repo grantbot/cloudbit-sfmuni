@@ -9,7 +9,7 @@ STOP_MAP = {
     'N': {  # N-Judah
         'carl_stanyan': {
             'inbound': '3915',
-            'outbound': '3915',
+            'outbound': '3914',
         },
     },
 }
