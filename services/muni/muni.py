@@ -48,8 +48,22 @@ def get_next(route, stop_name, direction, num):
     LOGGER.info('Hitting NextBus.')
     res = requests.get(url)
 
+    predictions = get_predictions_from_xml(res.text)
+    predictions_min = get_sorted_minutes(predictions)
+    result = predictions_min[:num]
+
+    LOGGER.info('Next {direction} {route} buses: {buses}'
+                .format(direction=direction,
+                        route=route,
+                        buses=result))
+
+    return result
+
+
+def get_predictions_from_xml(nextbus_xml):
+    """Extract bus prediction times from raw NextBus XML response."""
     # XML to dict
-    parsed = xmltodict.parse(res.text)
+    parsed = xmltodict.parse(nextbus_xml)
 
     # 'direction' won't exist inside 'predictions' if no predictions
     try:
@@ -62,15 +76,8 @@ def get_next(route, stop_name, direction, num):
         LOGGER.debug('Parsed XML: %s', parsed)
         raise NoPredictionsError
 
-    predictions_min = get_sorted_minutes(predictions)
-    result = predictions_min[:num]
+    return predictions
 
-    LOGGER.info('Next {direction} {route} buses: {buses}'
-                .format(direction=direction,
-                        route=route,
-                        buses=result))
-
-    return result
 
 
 def get_sorted_minutes(predictions):
