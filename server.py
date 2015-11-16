@@ -3,6 +3,10 @@ import json
 import cherrypy
 
 from routes.muni import SfMuni
+from util.log import log
+from util.log.log_conf import LOG_CONF
+
+LOGGER = log.setup_global_logger(LOG_CONF)
 
 
 if __name__ == '__main__':

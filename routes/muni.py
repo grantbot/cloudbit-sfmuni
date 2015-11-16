@@ -1,14 +1,11 @@
 """Module for /api/muni"""
 
 import logging
-import logging.config
 
 import cherrypy
 
-from log_conf import LOG_CONF
 
-logging.config.dictConfig(LOG_CONF)
-LOGGER = logging.getLogger(__name__)
+LOGGER = logging.getLogger()
 
 
 class SfMuni(object):
