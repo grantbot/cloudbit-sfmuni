@@ -78,8 +78,8 @@ def get_predictions_from_xml(nextbus_xml):
             predictions = directions['prediction']
 
     except KeyError:
-        LOGGER.info('No predictions.')
-        LOGGER.debug('Parsed XML: %s', parsed)
+        LOGGER.info('KeyError. No predictions.')
+        LOGGER.warn('Parsed XML: %s', parsed)
         raise NoPredictionsError
 
     return predictions
@@ -88,7 +88,11 @@ def get_predictions_from_xml(nextbus_xml):
 
 def get_sorted_minutes(predictions):
     """Pull the earliest two predictions, in minutes, from parsed NextBus XML."""
-    return sorted([int(p['@minutes']) for p in predictions])
+    try:
+        return sorted([int(p['@minutes']) for p in predictions])
+    except:
+        LOGGER.warn('get_sorted_minutes failed: %s', predictions)
+        raise
 
 
 # CUSTOM EXCEPTIONS
